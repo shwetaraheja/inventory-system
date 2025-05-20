@@ -2,14 +2,13 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 function DeleteProduct() {
   const { role } = useContext(AuthContext);
   const [barcode, setBarcode] = useState('');
   const [product, setProduct] = useState(null);
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+ 
 
   const handleSearch = async () => {
     if (!barcode) {
