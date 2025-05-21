@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import './customStyles.css';
 
 function InventoryFeed() {
@@ -12,7 +11,6 @@ function InventoryFeed() {
     containerCode: "Aisle"
   };
   
-    const navigate = useNavigate();
   const [formData, setFormData] = useState({
     barcode: '',
     name: '',
