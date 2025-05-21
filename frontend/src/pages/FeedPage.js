@@ -39,9 +39,14 @@ function InventoryFeed() {
       warehouse: formData.warehouse.toLowerCase(),
       containerCode: formData.containerCode.toLowerCase()
     };
+   // const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   
     try {
-      await axios.post('http://localhost:5004/products', normalizedData);
+      //const BASE_URL = "https://inventory-system-new-24j9.onrender.com"; // Set backend URL
+      const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+      await axios.get(`${BASE_URL}/products`, normalizedData);
+
+     // await axios.post(`${BASE_URL}/products`, normalizedData);
       alert('Product added successfully!');
       setFormData({
         barcode: '',

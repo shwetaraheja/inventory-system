@@ -12,10 +12,10 @@ function InventoryFinder() {
       setProduct(null);
       return;
     }
-
+    const BASE_URL = process.env.REACT_APP_BACKEND_URL;
     try {
       // Query the backend endpoint
-      const res = await axios.get(`http://localhost:5004/products/find?barcode=${barcode.toLowerCase()}`);
+      const res = await axios.get(`${BASE_URL}/products/find?barcode=${barcode.toLowerCase()}`);
       const data = Array.isArray(res.data) ? res.data : [];
       
       if (data.length >= 1) {

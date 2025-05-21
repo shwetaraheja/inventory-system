@@ -9,14 +9,16 @@ function DeleteProduct() {
   const [product, setProduct] = useState(null);
   const [message, setMessage] = useState('');
  
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+  
   const handleSearch = async () => {
     if (!barcode) {
       setMessage('Please enter a barcode.');
       return;
     }
     try {
-      const res = await axios.get(`http://localhost:5004/products/${barcode.toLowerCase()}`);
+      const res = await axios.get(`${BASE_URL}/products/${barcode.toLowerCase()}`);
+      
       setProduct(res.data);
       setMessage('');
     } catch (err) {
@@ -32,7 +34,7 @@ function DeleteProduct() {
     }
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`http://localhost:5004/products/${barcode.toLowerCase()}`);
+        await axios.delete(`${BASE_URL}/products/${barcode.toLowerCase()}`);
         setMessage('Product deleted successfully.');
         setProduct(null);
         setBarcode('');

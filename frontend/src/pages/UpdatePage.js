@@ -9,14 +9,14 @@ function UpdatePage() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [inputBarcode, setInputBarcode] = useState(barcode || '');
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   // Fetch product details by barcode
   useEffect(() => {
     const fetchProduct = async () => {
       if (!barcode) return;
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:5004/products/${barcode.toLowerCase()}`);
+        const res = await axios.get(`${BASE_URL}/products/${barcode.toLowerCase()}`);
         setProduct(res.data);
         setMessage('');
       } catch (error) {
@@ -40,7 +40,7 @@ function UpdatePage() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5004/products/${barcode.toLowerCase()}`,
+        `${BASE_URL}/products/${barcode.toLowerCase()}`,
         updatePayload
       );
       setMessage('✅ Product updated successfully');

@@ -126,6 +126,8 @@ app.get("/test", (req, res) => {
 
 // Start the Server
 const PORT = process.env.PORT || 5004;
+const BASE_URL = process.env.BASE_URL; // Use the backend URL if needed
+
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on ${BASE_URL || `http://localhost:${PORT}`}`);
 });
