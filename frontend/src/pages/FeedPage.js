@@ -78,50 +78,46 @@ function InventoryFeed() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container">
       <div
-        className="mx-auto"
-        style={{ maxWidth: "700px", borderRadius: "12px" }}
+        className="mx-auto shadow p-4 bg-white"
+        style={{ maxWidth: "500px", borderRadius: "12px" }}
       >
-        <div className="">
-          <h2
-            className="text-center mb-4"
-            style={{
-              color: "#00336e",
-              fontWeight: "bold",
-            }}
-          >
-            Add New Product
-          </h2>
-          <ToastContainer />
-          <form onSubmit={handleSubmit}>
-            {Object.keys(formData).map((field) => (
-              <div className="mb-3 d-flex align-items-center" key={field}>
-                <div className="col-sm-9">
-                  <div class="form-floating-custom">
-                    <input
-                      type="text"
-                      id="name"
-                      className="form-control"
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleChange}
-                      placeholder=""
-                      required
-                    />
-                    <label for="name">{`Enter ${fieldLabels[field]}`}</label>
-                  </div>
-                </div>
+        <h2
+          className="text-center mb-4"
+          style={{
+            color: "#00336e",
+            fontWeight: "bold",
+          }}
+        >
+          Add New Product
+        </h2>
+        <ToastContainer />
+        <form onSubmit={handleSubmit} autoComplete="off">
+          {Object.keys(formData).map((field) => (
+            <div className="mb-3 align-items-center" key={field}>
+              <div class="form-floating-custom">
+                <input
+                  type={field === "quantity" ? "number" : "text"}
+                  id="name"
+                  className="form-control"
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  placeholder=""
+                  required
+                />
+                <label for="name">{`Enter ${fieldLabels[field]}`}</label>
               </div>
-            ))}
-
-            <div className="text-center mt-4">
-              <button type="submit" className=" attractive-button btn w-10">
-                <i className="bi bi-plus-circle"></i> Add Product
-              </button>
             </div>
-          </form>
-        </div>
+          ))}
+
+          <div className="text-center mt-4">
+            <button type="submit" className=" attractive-button btn w-10">
+              <i className="bi bi-plus-circle"></i> Add Product
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

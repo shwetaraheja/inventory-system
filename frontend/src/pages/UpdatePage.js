@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContext";
 
 function UpdatePage() {
+  const { role } = useContext(AuthContext);
   const { barcode } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [inputBarcode, setInputBarcode] = useState(barcode || '');
+  const [inputBarcode, setInputBarcode] = useState(barcode || "");
   const BASE_URL = process.env.REACT_APP_BACKEND_URL;
   // Fetch product details by barcode
   useEffect(() => {
@@ -16,12 +18,14 @@ function UpdatePage() {
       if (!barcode) return;
       setLoading(true);
       try {
-        const res = await axios.get(`${BASE_URL}/products/${barcode.toLowerCase()}`);
+        const res = await axios.get(
+          `${BASE_URL}/products/${barcode.toLowerCase()}`
+        );
         setProduct(res.data);
-        setMessage('');
+        setMessage("");
       } catch (error) {
         setProduct(null);
-        setMessage('❌ Product not found');
+        setMessage("❌ Product not found");
       } finally {
         setLoading(false);
       }
@@ -31,7 +35,7 @@ function UpdatePage() {
 
   const handleUpdate = async () => {
     if (!product) {
-      setMessage('❌ Cannot update, product not loaded.');
+      setMessage("❌ Cannot update, product not loaded.");
       return;
     }
     // Remove _id and __v if present
@@ -43,11 +47,11 @@ function UpdatePage() {
         `${BASE_URL}/products/${barcode.toLowerCase()}`,
         updatePayload
       );
-      setMessage('✅ Product updated successfully');
+      setMessage("✅ Product updated successfully");
       setProduct(response.data); // Update with latest data
     } catch (err) {
       console.error(err);
-      setMessage('❌ Error updating product');
+      setMessage("❌ Error updating product");
     }
   };
 
@@ -74,9 +78,14 @@ function UpdatePage() {
                 </div>
               ) : product ? (
                 <>
-                   <div className="product-icon"> 📦 <h3>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h3>
-                  
-                      </div><div className="mb-3">
+                  <div className="product-icon">
+                    📦
+                    <h3>
+                      {product.name.charAt(0).toUpperCase() +
+                        product.name.slice(1)}
+                    </h3>
+                  </div>
+                  <div className="mb-3">
                     <label className="form-label">Product Barcode</label>
                     <input
                       type="text"
@@ -91,8 +100,11 @@ function UpdatePage() {
                       type="number"
                       className="form-control"
                       value={product.quantity}
-                      onChange={e =>
-                        setProduct({ ...product, quantity: Number(e.target.value) })
+                      onChange={(e) =>
+                        setProduct({
+                          ...product,
+                          quantity: Number(e.target.value),
+                        })
                       }
                     />
                   </div>
@@ -102,7 +114,7 @@ function UpdatePage() {
                       type="text"
                       className="form-control"
                       value={product.warehouse}
-                      onChange={e =>
+                      onChange={(e) =>
                         setProduct({ ...product, warehouse: e.target.value })
                       }
                     />
@@ -113,39 +125,58 @@ function UpdatePage() {
                       type="text"
                       className="form-control"
                       value={product.containerCode}
-                      onChange={e =>
-                        setProduct({ ...product, containerCode: e.target.value })
+                      onChange={(e) =>
+                        setProduct({
+                          ...product,
+                          containerCode: e.target.value,
+                        })
                       }
                     />
                   </div>
-                  <button className=" attractive-button btn w-10" onClick={handleUpdate}>
+                  <button
+                    className=" attractive-button btn w-10"
+                    onClick={handleUpdate}
+                  >
                     ✅ Update Product
                   </button>
                   {message && (
-                    <div className="alert mt-3 text-center alert-info">{message}</div>
+                    <div className="alert mt-3 text-center alert-info">
+                      {message}
+                    </div>
                   )}
                 </>
               ) : (
                 <div className="alert alert-danger text-center">{message}</div>
               )}
             </div>
+          ) : role !== "editor" ? (
+            <div className="alert alert-danger">
+              You are not authorized to delete products.
+            </div>
           ) : (
             <>
-              <p className="text-center">Enter a barcode to find a product to update:</p>
+              <p className="text-center">
+                Enter a barcode to find a product to update:
+              </p>
               <div className="input-group">
                 <input
                   type="text"
                   className="form-control"
                   value={inputBarcode}
-                  onChange={e => setInputBarcode(e.target.value)}
+                  onChange={(e) => setInputBarcode(e.target.value)}
                   placeholder="Enter product barcode"
                 />
-                <button className=" attractive-button btn w-10" onClick={handleBarcodeSubmit}>
+                <button
+                  className=" attractive-button btn w-10"
+                  onClick={handleBarcodeSubmit}
+                >
                   🔍 Search
                 </button>
               </div>
               {message && (
-                <div className="alert mt-3 text-center alert-danger">{message}</div>
+                <div className="alert mt-3 text-center alert-danger">
+                  {message}
+                </div>
               )}
             </>
           )}
