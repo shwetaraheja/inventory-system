@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 function InventoryFinder() {
-  const [barcode, setBarcode] = useState('');
+  const [barcode, setBarcode] = useState("");
   const [product, setProduct] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSearch = async () => {
     if (!barcode || barcode.length < 2) {
@@ -15,16 +15,18 @@ function InventoryFinder() {
     const BASE_URL = process.env.REACT_APP_BACKEND_URL;
     try {
       // Query the backend endpoint
-      const res = await axios.get(`${BASE_URL}/products/find?barcode=${barcode.toLowerCase()}`);
+      const res = await axios.get(
+        `${BASE_URL}/products/find?barcode=${barcode.toLowerCase()}`
+      );
       const data = Array.isArray(res.data) ? res.data : [];
-      
+
       if (data.length >= 1) {
         // If one or more matching products are found, we'll just show the first one.
         setProduct(data[0]);
-        setError('');
+        setError("");
       } else {
         setProduct(null);
-        setError('No product found.');
+        setError("No product found.");
       }
     } catch (err) {
       console.error("Search error:", err);
@@ -34,18 +36,24 @@ function InventoryFinder() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: '600px', marginTop: '40px' }}>
-      <h2 className="mb-4" style={{ color: '#00336e', fontWeight: '700' }}>Find Product by Barcode</h2>
-      
+    <div className="container" style={{ maxWidth: "600px", marginTop: "40px" }}>
+      <h2 className="mb-4" style={{ color: "#00336e", fontWeight: "700" }}>
+        Find Product by Barcode
+      </h2>
+
       <div className="input-group mb-3">
-        <input 
-          type="text" 
+        <input
+          type="text"
           className="form-control"
           placeholder="Enter barcode"
           value={barcode}
           onChange={(e) => setBarcode(e.target.value)}
         />
-        <button className="attractive-button ms-2" style={{ minWidth: '100px' }} onClick={handleSearch}>
+        <button
+          className="attractive-button ms-2"
+          style={{ minWidth: "100px" }}
+          onClick={handleSearch}
+        >
           Search
         </button>
       </div>
@@ -55,7 +63,9 @@ function InventoryFinder() {
       {product && (
         <div className="product-card">
           <div className="product-icon">📦</div>
-          <h3>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h3>
+          <h3>
+            {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
+          </h3>
           <div className="product-detail-row">
             <span className="product-detail-label">Barcode:</span>
             <span>{product.barcode}</span>
@@ -70,11 +80,14 @@ function InventoryFinder() {
           </div>
           <div className="product-detail-row">
             <span className="product-detail-label">aisle:</span>
-            <span>{product.containerCode}</span>
+            <span>
+              {product.containerCode.charAt(0).toUpperCase() +
+                product.containerCode.slice(1)}
+            </span>
           </div>
-        </div>)}
+        </div>
+      )}
     </div>
-    
   );
 }
 

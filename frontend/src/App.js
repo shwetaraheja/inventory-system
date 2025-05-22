@@ -12,165 +12,177 @@ import DeleteProduct from "./pages/DeletePage";
 import Footer from "./pages/footer";
 import ListPage from "./pages/listPage";
 
-// A simple navbar component using the AuthContext
 function AppNavbar() {
   const [isOpen, setIsOpen] = useState(false);
-  // Place the following lines at the top of your component (inside the function)
   const { role, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   const handleLogout = () => {
-    logout(); // reset the authentication context
-    navigate("/"); // redirect back to the login/home page
+    logout();
+    navigate("/");
+    closeMenu();
   };
+
+  const desktopNavLinks = (
+    <div className="navbar-nav">
+      {role === "editor" && (
+        <>
+          <Link className="nav-link text-white" to="/feed">
+            Add Product
+          </Link>
+          <Link className="nav-link text-white" to="/update">
+            Update Product
+          </Link>
+          <Link className="nav-link text-white" to="/delete">
+            Delete Product
+          </Link>
+        </>
+      )}
+      {(role === "editor" || role === "viewer") && (
+        <>
+          <Link className="nav-link text-white" to="/finder">
+            Find Product
+          </Link>
+          <Link className="nav-link text-white" to="/list">
+            List
+          </Link>
+        </>
+      )}
+      {role && (
+        <>
+          <span className="nav-link text-white disabled">
+            {role.charAt(0).toUpperCase() + role.slice(1)}
+          </span>
+          <button className="btn btn-outline-light ms-2" onClick={handleLogout}>
+            Logout
+          </button>
+        </>
+      )}
+    </div>
+  );
+
+  const mobileNavLinks = (
+    <div className="d-flex flex-column">
+      {role === "editor" && (
+        <>
+          <Link
+            className="text-white py-2 px-3"
+            style={{ textDecoration: "none" }}
+            to="/feed"
+            onClick={closeMenu}
+          >
+            Add Product
+          </Link>
+          <Link
+            className="text-white py-2 px-3"
+            style={{ textDecoration: "none" }}
+            to="/update"
+            onClick={closeMenu}
+          >
+            Update Product
+          </Link>
+          <Link
+            className="text-white py-2 px-3"
+            style={{ textDecoration: "none" }}
+            to="/delete"
+            onClick={closeMenu}
+          >
+            Delete Product
+          </Link>
+        </>
+      )}
+      {(role === "editor" || role === "viewer") && (
+        <>
+          <Link
+            className="text-white py-2 px-3"
+            to="/finder"
+            onClick={closeMenu}
+            style={{ textDecoration: "none" }}
+          >
+            Find Product
+          </Link>
+          <Link
+            className="text-white py-2 px-3"
+            to="/list"
+            onClick={closeMenu}
+            style={{ textDecoration: "none" }}
+          >
+            List
+          </Link>
+        </>
+      )}
+      {role && (
+        <>
+          <span className="text-white py-2 px-3">
+            {role.charAt(0).toUpperCase() + role.slice(1)}
+          </span>
+          <button className="btn btn-outline-light m-2" onClick={handleLogout}>
+            Logout
+          </button>
+        </>
+      )}
+    </div>
+  );
 
   return (
     <nav
       className="navbar navbar-expand-lg"
-      style={{ backgroundColor: "#00336e" }}
+      style={{ backgroundColor: "#00336e", padding: "10px 20px" }}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        {/* Logo and Home */}
+        <Link
+          className="navbar-brand d-flex align-items-center text-white"
+          to="/"
+          onClick={closeMenu}
+        >
           <img
             src="/logo.png"
             alt="Harbor Point Logo"
             style={{
-              width: "70px",
-              height: "70px",
+              width: "50px",
+              height: "50px",
               borderRadius: "50%",
-              objectFit: "contain",
               backgroundColor: "#fff",
               padding: "5px",
+              marginRight: "10px",
             }}
           />
+          <span className="fw-bold">Home</span>
         </Link>
 
-        <Link
-          className="navbar-brand"
-          to="/"
-          style={{ color: "#fff", fontSize: "16px", fontWeight: "bold" }}
-        >
-          Home
-        </Link>
-
-        {role !== "editor" ? (
-          <></>
-        ) : (
-          <Link
-            className="navbar-brand"
-            to="/feed"
-            style={{ color: "#fff", fontSize: "16px", fontWeight: "bold" }}
-          >
-            Add Product
-          </Link>
-        )}
-
-        <Link
-          className="navbar-brand"
-          to="/finder"
-          style={{ color: "#fff", fontSize: "16px", fontWeight: "bold" }}
-        >
-          Find Product
-        </Link>
-
-        {role !== "editor" ? (
-          <></>
-        ) : (
-          <Link
-            className="navbar-brand"
-            to="/update"
-            style={{ color: "#fff", fontSize: "16px", fontWeight: "bold" }}
-          >
-            Update Product
-          </Link>
-        )}
-        {role !== "editor" ? (
-          <></>
-        ) : (
-          <Link
-            className="navbar-brand"
-            to="/delete"
-            style={{ color: "#fff", fontSize: "16px", fontWeight: "bold" }}
-          >
-            Delete Product
-          </Link>
-        )}
-
-        <Link
-          className="navbar-brand"
-          to="/list"
-          style={{ color: "#fff", fontSize: "16px", fontWeight: "bold" }}
-        >
-          List
-        </Link>
-
-        {/* Custom toggler button */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          onClick={toggleMenu}
-          aria-label="Toggle navigation"
-          style={{ borderColor: "white" }}
-        >
-          {/* Simple hamburger icon */}
-          <span
-            style={{
-              display: "block",
-              width: "25px",
-              height: "3px",
-              marginBottom: "5px",
-              backgroundColor: "white",
-            }}
-          ></span>
-          <span
-            style={{
-              display: "block",
-              width: "25px",
-              height: "3px",
-              marginBottom: "5px",
-              backgroundColor: "white",
-            }}
-          ></span>
-          <span
-            style={{
-              display: "block",
-              width: "25px",
-              height: "3px",
-              backgroundColor: "white",
-            }}
-          ></span>
+        {/* Toggle Button for Mobile */}
+        <button className="navbar-toggler" type="button" onClick={toggleMenu}>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Show/hide menu based on state */}
-        <div
-          className={`navbar-collapse ${isOpen ? "show" : "collapse"}`}
-          id="navbarSupportedContent"
-        >
-          <ul className="navbar-nav ms-auto">
-            {role && (
-              <>
-                <li className="nav-item">
-                  <span className="nav-link" style={{ color: "#fff " }}>
-                    {role.charAt(0).toUpperCase() + role.slice(1)}
-                  </span>
-                </li>
-                <li className="nav-item">
-                  <button
-                    className="btn btn-secondary nav-link"
-                    onClick={handleLogout}
-                    style={{ color: "#fff" }}
-                  >
-                    Logout
-                  </button>
-                </li>
-              </>
-            )}
-          </ul>
+        {/* Desktop Menu */}
+        <div className="collapse navbar-collapse d-none d-lg-flex justify-content-end">
+          {desktopNavLinks}
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div
+          className="d-lg-none text-white"
+          style={{
+            backgroundColor: "#00336e",
+            position: "absolute",
+            top: "100%",
+            right: 0,
+            width: "60%",
+            zIndex: 1000,
+            borderBottomRightRadius: "10px",
+            opacity: 0.95,
+          }}
+        >
+          {mobileNavLinks}
+        </div>
+      )}
     </nav>
   );
 }

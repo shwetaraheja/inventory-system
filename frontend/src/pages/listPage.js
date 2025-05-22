@@ -28,6 +28,36 @@ const ListPage = () => {
       console.error("Error fetching products:", error);
     }
   };
+  const downloadCSV = () => {
+    if (products.length === 0) return;
+
+    const headers = [
+      "Barcode",
+      "Product Name",
+      "Quantity",
+      "Warehouse",
+      "Aisle",
+    ];
+    const rows = products.map((p) => [
+      p.barcode,
+      p.name,
+      p.quantity,
+      p.warehouse,
+      p.containerCode,
+    ]);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      [headers, ...rows].map((e) => e.join(",")).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "product_inventory.csv");
+    document.body.appendChild(link); // Required for Firefox
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
 
@@ -42,6 +72,11 @@ const ListPage = () => {
 
   return (
     <div className="container mt-4">
+      <div className="d-flex justify-content-end mb-3">
+        <button className=" attractive-button btn " onClick={downloadCSV}>
+          ⬇️ Download CSV
+        </button>
+      </div>
       <div className="card shadow p-4">
         <h3 className="text-center mb-4">Product Inventory</h3>
         <div className="table-responsive">
