@@ -66,122 +66,114 @@ function UpdatePage() {
   }
 
   return (
-    <div className="container py-5 px-10">
-      <div className="card shadow-lg rounded">
-        <div className="card-body">
-          {barcode ? (
-            <div>
-              {loading ? (
-                <div className="text-center">
-                  <div className="spinner-border text-primary" role="status" />
-                  <p className="mt-2">Loading product...</p>
-                </div>
-              ) : product ? (
-                <>
-                  <div className="product-icon">
-                    📦
-                    <h3>
-                      {product.name.charAt(0).toUpperCase() +
-                        product.name.slice(1)}
-                    </h3>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Product Barcode</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={product.barcode}
-                      readOnly
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Quantity</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={product.quantity}
-                      onChange={(e) =>
-                        setProduct({
-                          ...product,
-                          quantity: Number(e.target.value),
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Warehouse</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={product.warehouse}
-                      onChange={(e) =>
-                        setProduct({ ...product, warehouse: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="form-label">Aisle (Container Code)</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={product.containerCode}
-                      onChange={(e) =>
-                        setProduct({
-                          ...product,
-                          containerCode: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                  <button
-                    className=" attractive-button btn w-10"
-                    onClick={handleUpdate}
-                  >
-                    ✅ Update Product
-                  </button>
-                  {message && (
-                    <div className="alert mt-3 text-center alert-info">
-                      {message}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="alert alert-danger text-center">{message}</div>
-              )}
+    <div className="container py-5 px-10" style={{ maxWidth: "600px" }}>
+      <h2 className="mb-4 mx-5" style={{ color: "#00336e", fontWeight: "700" }}>
+        Update Product by Barcode
+      </h2>
+
+      {barcode ? (
+        <div>
+          {loading ? (
+            <div className="text-center">
+              <div className="spinner-border text-primary" role="status" />
+              <p className="mt-2">Loading product...</p>
             </div>
-          ) : role !== "editor" ? (
-            <div className="alert alert-danger">
-              You are not authorized to delete products.
-            </div>
-          ) : (
-            <>
-              <p className="text-center">
-                Enter a barcode to find a product to update:
-              </p>
-              <div className="input-group">
+          ) : product ? (
+            <div className="card shadow-lg rounded product-card">
+              <h3 className="text-center " style={{ color: "#00336e" }}>
+                {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
+              </h3>
+              <div className="mb-3">
+                <label className="form-label">Product Barcode</label>
                 <input
                   type="text"
                   className="form-control"
-                  value={inputBarcode}
-                  onChange={(e) => setInputBarcode(e.target.value)}
-                  placeholder="Enter product barcode"
+                  value={product.barcode}
+                  readOnly
                 />
-                <button
-                  className=" attractive-button btn w-10"
-                  onClick={handleBarcodeSubmit}
-                >
-                  🔍 Search
-                </button>
               </div>
+              <div className="mb-3">
+                <label className="form-label">Quantity</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={product.quantity}
+                  onChange={(e) =>
+                    setProduct({
+                      ...product,
+                      quantity: Number(e.target.value),
+                    })
+                  }
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Warehouse</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={product.warehouse}
+                  onChange={(e) =>
+                    setProduct({ ...product, warehouse: e.target.value })
+                  }
+                />
+              </div>
+              <div className="mb-4">
+                <label className="form-label">Aisle (Container Code)</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={product.containerCode}
+                  onChange={(e) =>
+                    setProduct({
+                      ...product,
+                      containerCode: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <button
+                className=" attractive-button btn w-10"
+                onClick={handleUpdate}
+              >
+                ✅ Update Product
+              </button>
               {message && (
-                <div className="alert mt-3 text-center alert-danger">
+                <div className="alert mt-3 text-center alert-info">
                   {message}
                 </div>
               )}
-            </>
+            </div>
+          ) : (
+            <div className="alert alert-danger text-center">{message}</div>
           )}
         </div>
-      </div>
+      ) : role !== "editor" ? (
+        <div className="alert alert-danger">
+          You are not authorized to delete products.
+        </div>
+      ) : (
+        <>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              value={inputBarcode}
+              onChange={(e) => setInputBarcode(e.target.value)}
+              placeholder="Enter product barcode"
+            />
+            <button
+              className=" attractive-button ms-2"
+              style={{ minWidth: "100px" }}
+              onClick={handleBarcodeSubmit}
+            >
+              Search
+            </button>
+          </div>
+          {message && (
+            <div className="alert mt-3 text-center alert-danger">{message}</div>
+          )}
+        </>
+      )}
     </div>
   );
 }

@@ -45,7 +45,7 @@ function InventoryFinder() {
         <input
           type="text"
           className="form-control"
-          placeholder="Enter barcode"
+          placeholder="Enter product barcode"
           value={barcode}
           onChange={(e) => setBarcode(e.target.value)}
         />
@@ -69,6 +69,10 @@ function InventoryFinder() {
           <div className="product-detail-row">
             <span className="product-detail-label">Barcode:</span>
             <span>{product.barcode}</span>
+          </div>
+          <div className="product-detail-row">
+            <span className="product-detail-label">Name:</span>
+            <span>{product.name}</span>
           </div>
           <div className="product-detail-row">
             <span className="product-detail-label">Quantity:</span>

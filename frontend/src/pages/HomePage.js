@@ -51,10 +51,6 @@ function HomePage() {
           </div>
         ) : (
           <div>
-            <p className="lead mb-4">
-              You are logged in as{" "}
-              <strong className="text-capitalize">{role}</strong>.
-            </p>
             <div className="row justify-content-center">
               {role === "editor" && (
                 <div className="col-md-6 mb-3">
@@ -70,11 +66,6 @@ function HomePage() {
                   </Link>
                 </div>
               )}
-              {/* <div className="col-md-6 mb-3">
-                <Link to="/list" className=" attractive-button btn w-100">
-                  List of all products
-                </Link>
-              </div> */}
               <div className="col-md-6 mb-3">
                 <Link to="/finder" className=" attractive-button btn w-100">
                   🔍 Find Product in Warehouse

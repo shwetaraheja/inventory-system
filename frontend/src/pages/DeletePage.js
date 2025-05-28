@@ -47,8 +47,10 @@ function DeleteProduct() {
   };
 
   return (
-    <div className="container">
-      <h2>Delete Product</h2>
+    <div className="container" style={{ maxWidth: "600px", marginTop: "40px" }}>
+      <h2 className="mb-4" style={{ color: "#00336e", fontWeight: "700" }}>
+        Delete Product
+      </h2>
       {role !== "editor" ? (
         <div className="alert alert-danger">
           You are not authorized to delete products.
@@ -56,9 +58,6 @@ function DeleteProduct() {
       ) : (
         <>
           <div className="mb-3">
-            <label htmlFor="barcodeInput" className="form-label">
-              Enter Barcode:
-            </label>
             <div className="input-group">
               <input
                 id="barcodeInput"
@@ -69,7 +68,7 @@ function DeleteProduct() {
                 onChange={(e) => setBarcode(e.target.value)}
               />
               <button
-                className=" attractive-button btn w-10"
+                className=" attractive-button ms-2"
                 onClick={handleSearch}
               >
                 Search
@@ -106,7 +105,6 @@ function DeleteProduct() {
               </div>
             </div>
           )}
-
           {message && <div className="alert alert-info mt-3">{message}</div>}
         </>
       )}

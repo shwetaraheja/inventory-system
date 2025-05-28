@@ -151,7 +151,6 @@ function AppNavbar() {
               marginRight: "10px",
             }}
           />
-          <span className="fw-bold">Home</span>
         </Link>
 
         {/* Toggle Button for Mobile */}
