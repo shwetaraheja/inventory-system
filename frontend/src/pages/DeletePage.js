@@ -45,6 +45,19 @@ function DeleteProduct() {
       }
     }
   };
+  const handleDeleteAll = async () => {
+    if (window.confirm("Are you sure you want to delete all products?")) {
+      try {
+        await axios.delete(`${BASE_URL}/products`);
+        setMessage("All products deleted successfully.");
+        setProduct(null);
+        setBarcode("");
+      } catch (error) {
+        console.error("Error deleting all products:", error);
+        setMessage("Error deleting all products.");
+      }
+    }
+  };
 
   return (
     <div className="container" style={{ maxWidth: "600px", marginTop: "40px" }}>
@@ -58,6 +71,12 @@ function DeleteProduct() {
       ) : (
         <>
           <div className="mb-3">
+            <button
+              className=" attractive-button btn w-10"
+              onClick={handleDeleteAll}
+            >
+              Delete All Products
+            </button>
             <div className="input-group">
               <input
                 id="barcodeInput"

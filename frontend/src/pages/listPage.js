@@ -78,17 +78,31 @@ const ListPage = () => {
         </button>
       </div>
       <div className="card shadow p-4">
-        <h3 className="text-center mb-4">Product Inventory</h3>
+        <h3 className="text-center mb-4" style={{ color: "#00336e" }}>
+          Product Inventory
+        </h3>
         <div className="table-responsive">
           <table className="table table-hover no-border-table">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Barcode</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Warehouse</th>
-                <th scope="col">Aisle</th>
+                <th scope="col" style={{ color: "#00336e" }}>
+                  #
+                </th>
+                <th style={{ color: "#00336e" }} scope="col">
+                  Barcode
+                </th>
+                <th style={{ color: "#00336e" }} scope="col">
+                  Product Name
+                </th>
+                <th style={{ color: "#00336e" }} scope="col">
+                  Quantity
+                </th>
+                <th style={{ color: "#00336e" }} scope="col">
+                  Warehouse
+                </th>
+                <th style={{ color: "#00336e" }} scope="col">
+                  Aisle
+                </th>
               </tr>
             </thead>
             <tbody>
