@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/harborptinventory/static/css/main.e9fec444.css",
+    "main.js": "/harborptinventory/static/js/main.72cc6ddc.js",
+    "static/js/453.aef41ab5.chunk.js": "/harborptinventory/static/js/453.aef41ab5.chunk.js",
+    "index.html": "/harborptinventory/index.html",
+    "main.e9fec444.css.map": "/harborptinventory/static/css/main.e9fec444.css.map",
+    "main.72cc6ddc.js.map": "/harborptinventory/static/js/main.72cc6ddc.js.map",
+    "453.aef41ab5.chunk.js.map": "/harborptinventory/static/js/453.aef41ab5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e9fec444.css",
+    "static/js/main.72cc6ddc.js"
+  ]
+}
