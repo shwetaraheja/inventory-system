@@ -152,13 +152,13 @@ function InventoryFeed() {
             </button>
           </div>
         </form>
-        <input type="file" accept=".csv" onChange={handleFileChange} />
+        {/* <input type="file" accept=".csv" onChange={handleFileChange} />
 
         <div className="text-center mt-3">
           <button onClick={handleFileUpload} className="btn btn-primary">
             <i className="bi bi-cloud-upload"></i> Upload CSV
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
