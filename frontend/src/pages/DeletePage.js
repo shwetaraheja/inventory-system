@@ -71,12 +71,12 @@ function DeleteProduct() {
       ) : (
         <>
           <div className="mb-3">
-            <button
+            {/* <button
               className=" attractive-button btn w-10"
               onClick={handleDeleteAll}
             >
               Delete All Products
-            </button>
+            </button> */}
             <div className="input-group">
               <input
                 id="barcodeInput"
