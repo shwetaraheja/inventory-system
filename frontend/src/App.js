@@ -188,7 +188,7 @@ function AppNavbar() {
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div
           style={{
             display: "flex",
