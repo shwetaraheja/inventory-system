@@ -4,6 +4,7 @@ import "./customStyles.css";
 import { ToastContainer, toast } from "react-toastify";
 
 function InventoryFeed() {
+  //just for testing purposes
   const [selectedFile, setSelectedFile] = useState(null);
   const fieldLabels = {
     barcode: "Barcode",
