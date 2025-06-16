@@ -140,7 +140,7 @@ function AppNavbar() {
           onClick={closeMenu}
         >
           <img
-            src="/logo.png"
+            src={`${process.env.PUBLIC_URL}/logo.png`}
             alt="Harbor Point Logo"
             style={{
               width: "50px",
