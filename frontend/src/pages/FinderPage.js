@@ -7,6 +7,7 @@ function InventoryFinder() {
   const [error, setError] = useState("");
 
   const handleSearch = async () => {
+    console.log("PUBLIC_URL:", process.env.PUBLIC_URL);
     if (!barcode || barcode.length < 2) {
       setError("Please enter at least 2 characters.");
       setProduct(null);
