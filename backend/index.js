@@ -34,7 +34,6 @@ const upload = multer({ dest: "uploads/" });
 */
 
 // 1. Find Products by Barcode
-// Use /products/find?barcode=dcad to search
 app.get("/products/find", async (req, res) => {
   console.log("✅ Find route hit!");
   const { barcode } = req.query;
