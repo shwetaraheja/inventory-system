@@ -44,10 +44,6 @@ function HomePage() {
               Login
             </button>
             {error && <p className="text-danger mt-2">{error}</p>}
-            <p className="text-muted mt-3">
-              Hint: Use <strong>EDIT123</strong> for editor (full access) or{" "}
-              <strong>VIEW456</strong> for viewer (read-only).
-            </p>
           </div>
         ) : (
           <div>
